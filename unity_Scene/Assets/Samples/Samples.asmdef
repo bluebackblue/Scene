@@ -2,7 +2,6 @@
     "name": "Samples",
     "rootNamespace": "",
     "references": [
-        "GUID:b22b8d1b216773d45ace17916a84886c",
         "GUID:c31a40954d6962045adec6def3c2e957"
     ],
     "includePlatforms": [],

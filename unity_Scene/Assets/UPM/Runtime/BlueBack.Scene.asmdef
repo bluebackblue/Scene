@@ -1,9 +1,7 @@
 {
     "name": "BlueBack.Scene",
     "rootNamespace": "",
-    "references": [
-        "BlueBack.UnityPlayerLoop"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
