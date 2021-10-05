@@ -3,7 +3,7 @@
 /**
  * Copyright (c) blueback
  * Released under the MIT License
- * @brief バージョン。
+ * @brief バージョン。自動生成。
 */
 
 
@@ -15,9 +15,13 @@ namespace BlueBack.Scene
 	*/
 	public class Version
 	{
-		/** version
+		/** packagename
 		*/
-		public const string packageversion = "0.0.3";
+		public const string packagename = "Scene";
+
+		/** packageversion
+		*/
+		public const string packageversion = "0.0.4";
 
 		/** GetPackageVersion
 		*/
