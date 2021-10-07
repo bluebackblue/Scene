@@ -1,16 +1,1 @@
-{
-    "name": "Samples",
-    "rootNamespace": "",
-    "references": [
-        "GUID:c31a40954d6962045adec6def3c2e957"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
-}
+{"noEngineReferences":false,"versionDefines":[],"defineConstraints":[],"autoReferenced":true,"precompiledReferences":[],"overrideReferences":false,"allowUnsafeCode":false,"excludePlatforms":[],"includePlatforms":[],"references":["GUID:c31a40954d6962045adec6def3c2e957"],"rootNamespace":"Samples","name":"Samples"}
