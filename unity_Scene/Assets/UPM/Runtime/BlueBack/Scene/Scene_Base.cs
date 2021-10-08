@@ -11,31 +11,31 @@
 */
 namespace BlueBack.Scene
 {
-	/** IScene
+	/** Scene_Base
 	*/
-	public interface IScene
+	public interface Scene_Base
 	{
-		/** [BlueBack.Scene.IScene]シーン名。
+		/** [BlueBack.Scene.Scene_Base]シーン名。
 		*/
 		string GetSceneName();
 
-		/** [BlueBack.Scene.IScene]前シーン。終了。初回。
+		/** [BlueBack.Scene.Scene_Base]前シーン。終了。初回。
 		*/
 		void BeforeSceneEndFirst();
 
-		/** [BlueBack.Scene.IScene]前シーン。終了。
+		/** [BlueBack.Scene.Scene_Base]前シーン。終了。
 		*/
 		void BeforeSceneEnd();
 
-		/** [BlueBack.Scene.IScene]前シーン。終了。ラスト。
+		/** [BlueBack.Scene.Scene_Base]前シーン。終了。ラスト。
 		*/
 		void BeforeSceneEndLast();
 
-		/** [BlueBack.Scene.IScene]カレントシーン。開始。初回。
+		/** [BlueBack.Scene.Scene_Base]カレントシーン。開始。初回。
 		*/
 		void CurrentSceneStartFirst();
 
-		/** [BlueBack.Scene.IScene]カレントシーン。開始。
+		/** [BlueBack.Scene.Scene_Base]カレントシーン。開始。
 
 			a_is_sceneloadend	: シーンの読み込みが完了したかどうか。 
 			return == true		: CurrentSceneRunningへの遷移を許可。
@@ -43,33 +43,33 @@ namespace BlueBack.Scene
 		*/
 		bool CurrentSceneStart(bool a_is_sceneloadend);
 
-		/** [BlueBack.Scene.IScene]カレントシーン。実行。
+		/** [BlueBack.Scene.Scene_Base]カレントシーン。実行。
 
 			return == true : CurrentSceneEndFirstへの遷移を許可。
 
 		*/
 		bool CurrentSceneRunning();
 
-		/** [BlueBack.Scene.IScene]カレントシーン。終了。初回。
+		/** [BlueBack.Scene.Scene_Base]カレントシーン。終了。初回。
 		*/
 		void CurrentSceneEndFirst();
 
-		/** [BlueBack.Scene.IScene]カレントシーン。終了。
+		/** [BlueBack.Scene.Scene_Base]カレントシーン。終了。
 
 			return == true : シーン遷移を許可。
 
 		*/
 		bool CurrentSceneEnd();
 
-		/** [BlueBack.Scene.IScene]更新。
+		/** [BlueBack.Scene.Scene_Base]更新。
 		*/
 		void UnityUpdate();
 
-		/** [BlueBack.Scene.IScene]更新。
+		/** [BlueBack.Scene.Scene_Base]更新。
 		*/
 		void UnityLateUpdate();
 
-		/** [BlueBack.Scene.IScene]更新。
+		/** [BlueBack.Scene.Scene_Base]更新。
 		*/
 		void UnityFixedUpdate();
 	}

@@ -13,7 +13,7 @@ namespace BlueBack.Scene
 {
 	/** Scene
 	*/
-	public class Scene
+	public sealed class Scene : System.IDisposable
 	{
 		/** Phase
 		*/
@@ -50,9 +50,9 @@ namespace BlueBack.Scene
 
 		/** scene
 		*/
-		private IScene scene_current;
-		private IScene scene_request;
-		private IScene scene_next;
+		private Scene_Base scene_current;
+		private Scene_Base scene_request;
+		private Scene_Base scene_next;
 
 		/** async
 		*/
@@ -64,6 +64,10 @@ namespace BlueBack.Scene
 
 		*/
 		private int startdelay;
+
+		/** callback_gameobject
+		*/
+		private UnityEngine.GameObject callback_gameobject;
 
 		/** constructor
 		*/
@@ -82,11 +86,30 @@ namespace BlueBack.Scene
 
 			//startdelay
 			this.startdelay = 0;
+
+			//callback
+			this.callback_gameobject = new UnityEngine.GameObject("Scene");
+			UnityEngine.GameObject.DontDestroyOnLoad(this.callback_gameobject);
+			this.callback_gameobject.AddComponent<CallBack_MonoBehaviour>().scene = this;
+
+			#if(DEF_BLUEBACK_SCENE_HIDEINNERGAMEOBJECT)
+			this.callback_gameobject.hideFlags = UnityEngine.HideFlags.HideInHierarchy;
+			#endif
+		}
+
+		/** [System.IDisposable]Dispose
+		*/
+		public void Dispose()
+		{
+			if(this.callback_gameobject != null){
+				UnityEngine.GameObject.Destroy(this.callback_gameobject);
+				this.callback_gameobject = null;
+			}
 		}
 
 		/** SetNextScene
 		*/
-		public void SetNextScene(IScene a_scene)
+		public void SetNextScene(Scene_Base a_scene)
 		{
 			this.scene_request = a_scene;
 		}
@@ -98,36 +121,37 @@ namespace BlueBack.Scene
 			return (this.scene_request != null);
 		}
 
-		/** UnityUpdate
+		/** OnUnityUpdate
 		*/
-		public void UnityUpdate()
+		public void OnUnityUpdate()
 		{
+			this.Inner_PhaseUpdate();
 			if(this.phase == Phase.Running){
 				this.scene_current.UnityUpdate();
 			}
 		}
 
-		/** UnityLateUpdate
+		/** OnUnityLateUpdate
 		*/
-		public void UnityLateUpdate()
+		public void OnUnityLateUpdate()
 		{
 			if(this.phase == Phase.Running){
 				this.scene_current.UnityLateUpdate();
 			}
 		}
 
-		/** UnityFixedUpdate
+		/** OnUnityFixedUpdate
 		*/
-		public void UnityFixedUpdate()
+		public void OnUnityFixedUpdate()
 		{
 			if(this.phase == Phase.Running){
 				this.scene_current.UnityFixedUpdate();
 			}
 		}
 
-		/** Update
+		/** Inner_PhaseUpdate
 		*/
-		public void Update()
+		private void Inner_PhaseUpdate()
 		{
 			switch(this.phase){
 			case Phase.Null:

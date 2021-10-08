@@ -6,7 +6,7 @@ namespace Samples.Scene.Exsample
 {
 	/** SceneB
 	*/
-	public class SceneB : BlueBack.Scene.IScene
+	public sealed class SceneB : BlueBack.Scene.Scene_Base
 	{
 		/** scene
 		*/

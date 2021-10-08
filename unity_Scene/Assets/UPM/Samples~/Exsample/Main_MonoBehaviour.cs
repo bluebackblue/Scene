@@ -27,28 +27,6 @@ namespace Samples.Scene.Exsample
 			this.scene = new BlueBack.Scene.Scene();
 			this.scene.SetNextScene(new SceneA(this.scene));
 		}
-
-		/** Update
-		*/
-		public void Update()
-		{
-			this.scene.Update();
-			this.scene.UnityUpdate();
-		}
-
-		/** FixedUpdate
-		*/
-		public void FixedUpdate()
-		{
-			this.scene.UnityFixedUpdate();
-		}
-
-		/** LateUpdate
-		*/
-		public void LateUpdate()
-		{
-			this.scene.UnityLateUpdate();
-		}
 	}
 }
 

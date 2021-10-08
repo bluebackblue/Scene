@@ -15,7 +15,7 @@ namespace BlueBack.Scene.Editor
 	/** UpdatePackage
 	*/
 	#if(!DEF_USER_BLUEBACK_SCENE)
-	public class UpdatePackage
+	public static class UpdatePackage
 	{
 		/** MenuItem_BlueBack_Scene_UpdatePackage
 		*/

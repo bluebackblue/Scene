@@ -18,7 +18,7 @@ Unity 2021.1.11f1
 
 ## UPM
 ### 最新
-* https://github.com/bluebackblue/Scene.git?path=unity_Scene/Assets/UPM#0.0.6
+* https://github.com/bluebackblue/Scene.git?path=unity_Scene/Assets/UPM#0.0.7
 ### 開発
 * https://github.com/bluebackblue/Scene.git?path=unity_Scene/Assets/UPM
 

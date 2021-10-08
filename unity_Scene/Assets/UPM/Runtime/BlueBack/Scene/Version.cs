@@ -13,7 +13,7 @@ namespace BlueBack.Scene
 {
 	/** Version
 	*/
-	public class Version
+	public static class Version
 	{
 		/** packagename
 		*/
@@ -21,7 +21,7 @@ namespace BlueBack.Scene
 
 		/** packageversion
 		*/
-		public const string packageversion = "0.0.6";
+		public const string packageversion = "0.0.7";
 
 		/** GetPackageVersion
 		*/
