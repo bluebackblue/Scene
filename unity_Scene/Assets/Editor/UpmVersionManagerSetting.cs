@@ -36,11 +36,11 @@ namespace Editor
 				//git_author
 				t_param.git_author = "bluebackblue";
 
+				//git_path
+				t_param.git_path = "unity_Scene/Assets/UPM";
+
 				//package_name
 				t_param.package_name = "Scene";
-
-				//getpackageversion
-				t_param.getpackageversion = BlueBack.Scene.Version.GetPackageVersion;
 
 				//packagejson_unity
 				t_param.packagejson_unity = "2020.1";
@@ -55,8 +55,11 @@ namespace Editor
 
 				//packagejson_dependencies
 				t_param.packagejson_dependencies = new System.Collections.Generic.Dictionary<string,string>(){
-					//{"blueback.xxxxx","https://github.com/xxxxx/xxxxx"},
+					//{"xxxxx.xxxxx","https://github.com/xxxxx/xxxxx"},
 				};
+
+				//root_readmemd_path
+				t_param.root_readmemd_path = "../../README.md";
 
 				//asmdef_runtime
 				t_param.asmdef_runtime = new BlueBack.UpmVersionManager.Editor.Object_Setting.Param.AsmdefItem{
@@ -71,7 +74,7 @@ namespace Editor
 					reference_list = new BlueBack.UpmVersionManager.Editor.Object_Setting.Param.AsmdefReferenceItem[]{
 						new BlueBack.UpmVersionManager.Editor.Object_Setting.Param.AsmdefReferenceItem(){
 							package_name = "BlueBack.Scene",
-							url = t_param.git_url + t_param.git_author + "/Scene",
+							url = "https://github.com/bluebackblue/Scene",
 						},
 					},
 					versiondefine_list = new BlueBack.UpmVersionManager.Editor.Object_Setting.Param.AsmdefVersionDefineItem[]{
@@ -83,7 +86,11 @@ namespace Editor
 					reference_list = new BlueBack.UpmVersionManager.Editor.Object_Setting.Param.AsmdefReferenceItem[]{
 						new BlueBack.UpmVersionManager.Editor.Object_Setting.Param.AsmdefReferenceItem(){
 							package_name = "BlueBack.Scene",
-							url = t_param.git_url + t_param.git_author + "/Scene",
+							url = "https://github.com/bluebackblue/Scene",
+						},
+						new BlueBack.UpmVersionManager.Editor.Object_Setting.Param.AsmdefReferenceItem(){
+							package_name = "BlueBack.Scene.Editor",
+							url = "https://github.com/bluebackblue/Scene",
 						},
 					},
 					versiondefine_list = new BlueBack.UpmVersionManager.Editor.Object_Setting.Param.AsmdefVersionDefineItem[]{
@@ -94,13 +101,6 @@ namespace Editor
 				t_param.changelog = new string[]{
 					"# Changelog",
 					"",
-
-					/*
-					"## [0.0.0] - 0000-00-00",
-					"### Changes",
-					"- xxxxxx",
-					"",
-					*/
 
 					"## [0.0.1] - 2021-04-13",
 					"### Changes",
@@ -132,7 +132,7 @@ namespace Editor
 					//依存。
 					(in BlueBack.UpmVersionManager.Editor.Object_Setting.Creator_Argument a_argument) => {
 						System.Collections.Generic.List<string> t_list = new System.Collections.Generic.List<string>();
-						t_list.Add("## 外部依存 / 使用ライセンス等");
+						t_list.Add("## 依存 / 使用ライセンス等");
 						t_list.AddRange(BlueBack.UpmVersionManager.Editor.Object_Setting.Create_RootReadMd_Asmdef_Dependence(a_argument));
 						return t_list.ToArray();
 					},
@@ -150,9 +150,9 @@ namespace Editor
 						return new string[]{
 							"## UPM",
 							"### 最新",
-							"* " + a_argument.param.git_url + a_argument.param.git_author + "/" + a_argument.param.package_name + ".git?path=unity_" + a_argument.param.package_name + "/Assets/UPM#" + a_argument.version,
+							"* " + a_argument.param.git_url + a_argument.param.git_author + "/" + a_argument.param.package_name + ".git?path=" + a_argument.param.git_path + "#" + a_argument.version,
 							"### 開発",
-							"* " + a_argument.param.git_url + a_argument.param.git_author + "/" + a_argument.param.package_name + ".git?path=unity_" + a_argument.param.package_name + "/Assets/UPM",
+							"* " + a_argument.param.git_url + a_argument.param.git_author + "/" + a_argument.param.package_name + ".git?path=" + a_argument.param.git_path,
 						};
 					},
 
@@ -191,5 +191,4 @@ namespace Editor
 	}
 }
 #endif
-
 
