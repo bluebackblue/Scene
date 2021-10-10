@@ -11,6 +11,7 @@
    "git_path":"unity_Scene/Assets/UPM",
    "git_author":"bluebackblue",
    "git_url":"https://github.com/",
+   "git_repos":"UpmScene",
    "author_name":"BlueBack",
    "need_unity_version":"2020.1",
    "package_name":"Scene"

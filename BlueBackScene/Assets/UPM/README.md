@@ -4,23 +4,23 @@
 
 ## ライセンス
 MIT License
-* https://github.com/bluebackblue/Scene/blob/main/LICENSE
+* https://github.com/bluebackblue/UpmScene/blob/main/LICENSE
 
 ## 依存 / 使用ライセンス等
 ### ランタイム
 ### エディター
-* https://github.com/bluebackblue/Scene
+* https://github.com/bluebackblue/UpmScene
 ### サンプル
-* https://github.com/bluebackblue/Scene
+* https://github.com/bluebackblue/UpmScene
 
 ## 動作確認
 Unity 2021.1.11f1
 
 ## UPM
 ### 最新
-* https://github.com/bluebackblue/Scene.git?path=unity_Scene/Assets/UPM#0.0.7
+* https://github.com/bluebackblue/UpmScene.git?path=BlueBackScene/Assets/UPM#0.0.8
 ### 開発
-* https://github.com/bluebackblue/Scene.git?path=unity_Scene/Assets/UPM
+* https://github.com/bluebackblue/UpmScene.git?path=BlueBackScene/Assets/UPM
 
 ## Unityへの追加方法
 * Unity起動
