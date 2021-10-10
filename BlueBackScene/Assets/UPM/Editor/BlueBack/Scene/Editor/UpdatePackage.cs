@@ -28,9 +28,9 @@ namespace BlueBack.Scene.Editor
 				DebugTool.EditorLogError("GetLastReleaseNameFromGitHub : connect error");
 				#endif
 			}else if(t_version.Length <= 0){
-				UnityEditor.PackageManager.Client.Add("https://github.com/bluebackblue/Scene.git?path=unity_Scene/Assets/UPM");
+				UnityEditor.PackageManager.Client.Add("https://github.com/bluebackblue/Scene.git?path=BlueBackScene/Assets/UPM");
 			}else{
-				UnityEditor.PackageManager.Client.Add("https://github.com/bluebackblue/Scene.git?path=unity_Scene/Assets/UPM#" + t_version);
+				UnityEditor.PackageManager.Client.Add("https://github.com/bluebackblue/Scene.git?path=BlueBackScene/Assets/UPM#" + t_version);
 			}
 		}
 
