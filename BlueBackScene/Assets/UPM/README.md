@@ -18,7 +18,7 @@ Unity 2021.1.11f1
 
 ## UPM
 ### 最新
-* https://github.com/bluebackblue/UpmScene.git?path=BlueBackScene/Assets/UPM#0.0.9
+* https://github.com/bluebackblue/UpmScene.git?path=BlueBackScene/Assets/UPM#0.0.10
 ### 開発
 * https://github.com/bluebackblue/UpmScene.git?path=BlueBackScene/Assets/UPM
 
@@ -32,4 +32,5 @@ Unity 2021.1.11f1
 Gitクライアントがインストールされている必要がある。
 * https://docs.unity3d.com/ja/current/Manual/upm-git.html
 * https://git-scm.com/
+
 

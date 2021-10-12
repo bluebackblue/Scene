@@ -7,10 +7,10 @@
     "discription_simple":"シーン管理",
     "discription_detal":[
         "シーン管理",
-        "* シーンの遷移",
+        "* シーンの遷移"
     ],
     "keyword":[
-        "scene",
+        "scene"
     ],
     "changelog":[
         "# Changelog",
@@ -18,7 +18,7 @@
         "## [0.0.0] - 2021-04-13",
         "### Changes",
         "- Init",
-        "",
+        ""
     ],
     "root_readmemd_path":"../../README.md",
     "need_unity_version":"2020.1",
@@ -35,8 +35,8 @@
             {
                 "use":"use",
                 "package_fullname":"BlueBack.Scene",
-                "url":"https://github.com/bluebackblue/UpmScene",
-            },
+                "url":"https://github.com/bluebackblue/UpmScene"
+            }
         ]
     },
     "asmdef_sample":{
@@ -46,8 +46,8 @@
             {
                 "use":"use",
                 "package_fullname":"BlueBack.Scene",
-                "url":"https://github.com/bluebackblue/UpmScene",
-            },
+                "url":"https://github.com/bluebackblue/UpmScene"
+            }
         ]
-    },
+    }
 }
