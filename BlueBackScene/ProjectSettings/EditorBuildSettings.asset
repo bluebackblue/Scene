@@ -6,12 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Samples/Scene/000/Exsample/Boot.unity
+    path: Assets/Samples/BlueBack.Scene/000/SetNextScene/Boot.unity
     guid: bcf40a8df3e80e74f839f91d6599ca11
   - enabled: 1
-    path: Assets/Samples/Scene/000/Exsample/SceneA.unity
+    path: Assets/Samples/BlueBack.Scene/000/SetNextScene/SceneA.unity
     guid: c980d9db024bd8e4e8c16a29387dbc6a
   - enabled: 1
-    path: Assets/Samples/Scene/000/Exsample/SceneB.unity
+    path: Assets/Samples/BlueBack.Scene/000/SetNextScene/SceneB.unity
     guid: bd80975195dedf645a433e24e701c542
   m_configObjects: {}
