@@ -20,21 +20,25 @@ namespace BlueBack.Scene.Editor
 		*/
 		public const string packageversion = Version.packageversion;
 
-		/** MenuItem_BlueBack_Scene_UpdatePackage
+		/** MenuItem_UpdatePackage_Develop
 		*/
 		#if(!DEF_USER_BLUEBACK_SCENE)
-		[UnityEditor.MenuItem("BlueBack/Scene/UpdatePackage " + Version.packageversion)]
+		[UnityEditor.MenuItem("BlueBack/Scene/UpdatePackage/Develop")]
 		#endif
-		public static void MenuItem_BlueBack_Scene_UpdatePackage()
+		public static void MenuItem_UpdatePackage_Develop()
+		{
+			UnityEditor.PackageManager.Client.Add("https://github.com/bluebackblue/UpmScene.git?path=BlueBackScene/Assets/UPM");
+		}
+
+		/** MenuItem_UpdatePackage_Last
+		*/
+		#if(!DEF_USER_BLUEBACK_SCENE)
+		[UnityEditor.MenuItem("BlueBack/Scene/UpdatePackage/Last " + Version.packageversion)]
+		#endif
+		public static void MenuItem_UpdatePackage_Last()
 		{
 			string t_version = GetLastReleaseNameFromGitHub();
-			if(t_version == null){
-				#if(UNITY_EDITOR)
-				DebugTool.EditorLogError("GetLastReleaseNameFromGitHub : connect error");
-				#endif
-			}else if(t_version.Length <= 0){
-				UnityEditor.PackageManager.Client.Add("https://github.com/bluebackblue/UpmScene.git?path=BlueBackScene/Assets/UPM");
-			}else{
+			if(t_version != null){
 				UnityEditor.PackageManager.Client.Add("https://github.com/bluebackblue/UpmScene.git?path=BlueBackScene/Assets/UPM#" + t_version);
 			}
 		}

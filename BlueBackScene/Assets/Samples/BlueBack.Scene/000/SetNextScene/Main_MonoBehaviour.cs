@@ -1,8 +1,8 @@
 
 
-/** Samples.Scene.Exsample
+/** Samples.Scene.SetNextScene
 */
-namespace Samples.Scene.Exsample
+namespace Samples.Scene.SetNextScene
 {
 	/** Main_MonoBehaviour
 	*/
