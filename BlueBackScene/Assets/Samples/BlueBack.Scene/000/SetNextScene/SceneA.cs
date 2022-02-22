@@ -1,8 +1,8 @@
 
 
-/** Samples.Scene.SetNextScene
+/** BlueBack.Scene.Samples.SetNextScene
 */
-namespace Samples.Scene.SetNextScene
+namespace BlueBack.Scene.Samples.SetNextScene
 {
 	/** SceneA
 	*/

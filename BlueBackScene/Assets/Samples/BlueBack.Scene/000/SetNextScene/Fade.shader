@@ -4,7 +4,7 @@
 */
 
 
-Shader "Samples/Scene/Exsample"
+Shader "BlueBack/Scene/Samples/SetNextScene/Fade"
 {
 	Properties
 	{

@@ -15,38 +15,9 @@ namespace BlueBack.Scene
 	*/
 	public sealed class Scene : System.IDisposable
 	{
-		/** Phase
-		*/
-		private enum Phase
-		{
-			/** Null
-			*/
-			Null,
-
-			/** 開始。初回。
-			*/
-			StartFirst,
-
-			/** 開始。
-			*/
-			Start,
-
-			/** 実行。
-			*/
-			Running,
-
-			/** 終了。初回。
-			*/
-			EndFirst,
-
-			/** 終了。
-			*/
-			End,
-		}
-
 		/** phase
 		*/
-		private Phase phase;
+		private PhaseType phase;
 
 		/** scene
 		*/
@@ -74,7 +45,7 @@ namespace BlueBack.Scene
 		public Scene()
 		{
 			//phase
-			this.phase = Phase.Null;
+			this.phase = PhaseType.Null;
 
 			//scene
 			this.scene_current = null;
@@ -107,6 +78,20 @@ namespace BlueBack.Scene
 			}
 		}
 
+		/** GetCurrentScene
+		*/
+		public Scene_Base GetCurrentScene()
+		{
+			return this.scene_current;
+		}
+
+		/** GetNextScene
+		*/
+		public Scene_Base GetNextScene()
+		{
+			return this.scene_request;
+		}
+
 		/** SetNextScene
 		*/
 		public void SetNextScene(Scene_Base a_scene)
@@ -126,7 +111,7 @@ namespace BlueBack.Scene
 		public void OnUnityUpdate()
 		{
 			this.Inner_PhaseUpdate();
-			if(this.phase == Phase.Running){
+			if(this.phase == PhaseType.Running){
 				this.scene_current.UnityUpdate();
 			}
 		}
@@ -135,7 +120,7 @@ namespace BlueBack.Scene
 		*/
 		public void OnUnityLateUpdate()
 		{
-			if(this.phase == Phase.Running){
+			if(this.phase == PhaseType.Running){
 				this.scene_current.UnityLateUpdate();
 			}
 		}
@@ -144,7 +129,7 @@ namespace BlueBack.Scene
 		*/
 		public void OnUnityFixedUpdate()
 		{
-			if(this.phase == Phase.Running){
+			if(this.phase == PhaseType.Running){
 				this.scene_current.UnityFixedUpdate();
 			}
 		}
@@ -154,13 +139,13 @@ namespace BlueBack.Scene
 		private void Inner_PhaseUpdate()
 		{
 			switch(this.phase){
-			case Phase.Null:
+			case PhaseType.Null:
 				{
 					if(this.scene_request != null){
 						//リクエストあり。
 						this.scene_current = this.scene_request;
 						this.scene_request = null;
-						this.phase = Phase.StartFirst;
+						this.phase = PhaseType.StartFirst;
 
 						//シーン。読み込み開始。
 						string t_scene_name = this.scene_current.GetSceneName();
@@ -176,15 +161,15 @@ namespace BlueBack.Scene
 						}
 					}
 				}break;
-			case Phase.StartFirst:
+			case PhaseType.StartFirst:
 				{
 					//開始。初回。
 
 					this.scene_current.CurrentSceneStartFirst();
-					this.phase = Phase.Start;
+					this.phase = PhaseType.Start;
 					this.startdelay = 0;
 				}break;
-			case Phase.Start:
+			case PhaseType.Start:
 				{
 					//開始。
 
@@ -203,11 +188,11 @@ namespace BlueBack.Scene
 
 					if(this.scene_current.CurrentSceneStart(t_fix) == true){
 						if(t_fix == true){
-							this.phase = Phase.Running;
+							this.phase = PhaseType.Running;
 						}
 					}
 				}break;
-			case Phase.Running:
+			case PhaseType.Running:
 				{
 					//実行。
 
@@ -216,17 +201,17 @@ namespace BlueBack.Scene
 						if(this.scene_request != null){
 							this.scene_next = this.scene_request;
 							this.scene_request = null;
-							this.phase = Phase.EndFirst;
+							this.phase = PhaseType.EndFirst;
 						}
 					}
 				}break;
-			case Phase.EndFirst:
+			case PhaseType.EndFirst:
 				{
 					//終了。初回。
 
 					this.scene_current.CurrentSceneEndFirst();
 					this.scene_next.BeforeSceneEndFirst();
-					this.phase = Phase.End;
+					this.phase = PhaseType.End;
 
 					//シーン。読み込み開始。
 					string t_scene_name = this.scene_next.GetSceneName();
@@ -235,7 +220,7 @@ namespace BlueBack.Scene
 						this.async.allowSceneActivation = false;
 					}
 				}break;
-			case Phase.End:
+			case PhaseType.End:
 				{
 					//終了。
 
@@ -244,7 +229,7 @@ namespace BlueBack.Scene
 						this.scene_next.BeforeSceneEndLast();
 						this.scene_current = this.scene_next;
 						this.scene_next = null;
-						this.phase = Phase.StartFirst;
+						this.phase = PhaseType.StartFirst;
 						this.startdelay = 0;
 
 						//シーン。許可。
