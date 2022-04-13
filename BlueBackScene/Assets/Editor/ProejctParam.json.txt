@@ -1,53 +1,55 @@
 {
-    "namespace_author":"BlueBack",
-    "namespace_package":"Scene",
-    "git_url":"https://github.com/bluebackblue/UpmScene",
-    "git_api":"https://api.github.com/repos/bluebackblue/UpmScene",
-    "git_path":"BlueBackScene/Assets/UPM",
-    "discription_simple":"シーン管理",
-    "discription_detal":[
-        "シーン管理",
-        "* シーンの遷移"
-    ],
-    "keyword":[
-        "scene"
-    ],
-    "changelog":[
-        "# Changelog",
-        "",
-        "## [0.0.0] - 2021-04-13",
-        "### Changes",
-        "- Init",
-        ""
-    ],
-    "root_readmemd_path":"../../README.md",
-    "need_unity_version":"2020.1",
-    "asmdef_runtime":{
-        "define_list":[
-        ],
-        "reference_list":[
-        ]
-    },
-    "asmdef_editor":{
-        "define_list":[
-        ],
-        "reference_list":[
-            {
-                "mode":"package",
-                "package_fullname":"BlueBack.Scene",
-                "url":"https://github.com/bluebackblue/UpmScene"
-            }
-        ]
-    },
-    "asmdef_sample":{
-        "define_list":[
-        ],
-        "reference_list":[
-            {
-                "mode":"package",
-                "package_fullname":"BlueBack.Scene",
-                "url":"https://github.com/bluebackblue/UpmScene"
-            }
-        ]
-    }
+	"namespace_author":"BlueBack",
+	"namespace_package":"Scene",
+	"git_url":"https://github.com/bluebackblue/UpmScene",
+	"git_api":"https://api.github.com/repos/bluebackblue/UpmScene",
+	"git_path":"BlueBackScene/Assets/UPM",
+	"discription_simple":"シーン管理",
+	"discription_detal":[
+		"シーン管理",
+		"* シーンの遷移"
+	],
+	"keyword":[
+		"scene"
+	],
+	"changelog":[
+		"# Changelog",
+		"",
+		"## [0.0.0] - 2021-04-13",
+		"### Changes",
+		"- Init",
+		""
+	],
+	"root_readmemd_path":"../../README.md",
+	"need_unity_version":"2020.1",
+	"asmdef_runtime":{
+		"define_list":[
+		],
+		"reference_list":[
+		]
+	},
+	"asmdef_editor":{
+		"define_list":[
+		],
+		"reference_list":[
+			{
+				"mode":"package",
+				"package_fullname":"BlueBack.Scene",
+				"url":"https://github.com/bluebackblue/UpmScene",
+				"define_package_pathname":"blueback.scene"
+			}
+		]
+	},
+	"asmdef_sample":{
+		"define_list":[
+		],
+		"reference_list":[
+			{
+				"mode":"package",
+				"package_fullname":"BlueBack.Scene",
+				"url":"https://github.com/bluebackblue/UpmScene",
+				"define_package_pathname":"blueback.scene"
+			}
+		]
+	}
 }
