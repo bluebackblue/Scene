@@ -170,14 +170,20 @@ namespace BlueBack.Scene
 
 					//action_changeaction_list
 					if(this.action_changeaction_list != null){
-						if(this.action_changeaction_list[this.action_index].Action(this) == true){
-							this.action_index++;
-							if(this.action_index < this.action_changeaction_list.Length){
-								this.action_changeaction_list[this.action_index].Change(this);
-							}else{
-								t_fix = true;
+						if(this.action_index < this.action_changeaction_list.Length){
+							if(this.action_changeaction_list[this.action_index].Action(this) == true){
+								this.action_index++;
+								if(this.action_index < this.action_changeaction_list.Length){
+									this.action_changeaction_list[this.action_index].Change(this);
+								}else{
+									t_fix = true;
+								}
 							}
+						}else{
+							t_fix = true;
 						}
+					}else{
+						t_fix = true;
 					}
 
 					//fix
