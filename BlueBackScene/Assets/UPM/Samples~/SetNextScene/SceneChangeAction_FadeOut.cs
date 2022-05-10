@@ -12,9 +12,9 @@ namespace BlueBack.Scene.Samples.SetNextScene
 		*/
 		public enum ID{Default=0}
 
-		/** CreateActionBox
+		/** Create
 		*/
-		public static ChangeAction_Item_Base CreateActionBox()
+		public static ChangeAction_Item_Base Create()
 		{
 			return new ChangeAction_Item<SceneChangeAction_FadeOut.ID>(new SceneChangeAction_FadeOut(),SceneChangeAction_FadeOut.ID.Default);
 		}

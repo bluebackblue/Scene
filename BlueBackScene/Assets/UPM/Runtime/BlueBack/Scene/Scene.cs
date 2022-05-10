@@ -153,7 +153,11 @@ namespace BlueBack.Scene
 						this.phase = PhaseType.ChangeAction;
 
 						//Change
-						this.action_changeaction_list[this.action_index].Change(this);
+						if(this.action_changeaction_list != null){
+							if(this.action_index < this.action_changeaction_list.Length){
+								this.action_changeaction_list[this.action_index].Change(this);
+							}
+						}
 					}
 				}break;
 			case PhaseType.ChangeAction:
@@ -162,22 +166,31 @@ namespace BlueBack.Scene
 					DebugTool.Log(string.Format("{0} : {1}","Inner_Update",this.phase));
 					#endif
 
-					//Action
-					if(this.action_changeaction_list[this.action_index].Action(this) == true){
-						this.action_index++;
-						if(this.action_index < this.action_changeaction_list.Length){
-							this.action_changeaction_list[this.action_index].Change(this);
-						}else{
-							this.scene_current = this.scene_next;
-							this.scene_next = null;
+					bool t_fix = false;
 
-							this.action_changeaction_list = null;
-							this.action_index = 0;
-
-							this.phase = PhaseType.Running;
-
-							this.scene_current.SceneChange();
+					//action_changeaction_list
+					if(this.action_changeaction_list != null){
+						if(this.action_changeaction_list[this.action_index].Action(this) == true){
+							this.action_index++;
+							if(this.action_index < this.action_changeaction_list.Length){
+								this.action_changeaction_list[this.action_index].Change(this);
+							}else{
+								t_fix = true;
+							}
 						}
+					}
+
+					//fix
+					if(t_fix == true){
+						this.scene_current = this.scene_next;
+						this.scene_next = null;
+
+						this.action_changeaction_list = null;
+						this.action_index = 0;
+
+						this.phase = PhaseType.Running;
+
+						this.scene_current.SceneChange();
 					}
 				}break;
 			case PhaseType.Running:
