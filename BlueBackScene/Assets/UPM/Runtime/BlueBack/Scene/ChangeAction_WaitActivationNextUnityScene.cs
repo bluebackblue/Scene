@@ -19,12 +19,12 @@ namespace BlueBack.Scene
 		*/
 		public enum ID{Default=0}
 
-		/** CreateActionBox
+		/** Create
 
-			a_add_wait_frame			: 追加で待つフレーム数。
+			a_add_wait_frame : 追加で待つフレーム数。
 
 		*/
-		public static ChangeAction_Item_Base CreateActionBox(int a_add_wait_frame)
+		public static ChangeAction_Item_Base Create(int a_add_wait_frame)
 		{
 			return new ChangeAction_Item<ChangeAction_WaitActivationNextUnityScene.ID>(new ChangeAction_WaitActivationNextUnityScene(a_add_wait_frame),ChangeAction_WaitActivationNextUnityScene.ID.Default);
 		}

@@ -70,11 +70,11 @@ namespace BlueBack.Scene.Samples.SetNextScene
 						new SceneB(this.scene),
 						new ChangeAction_Item_Base[]{
 							//シーンロード開始。
-							BlueBack.Scene.ChangeAction_SingleLoaRequestNextUnityScene.CreateActionBox(false),
+							BlueBack.Scene.ChangeAction_SingleLoaRequestNextUnityScene.Create(false),
 							//フェードアウト。
-							SceneChangeAction_FadeOut.CreateActionBox(),
+							SceneChangeAction_FadeOut.Create(),
 							//シーンロード待ち。
-							BlueBack.Scene.ChangeAction_WaitActivationNextUnityScene.CreateActionBox(0),
+							BlueBack.Scene.ChangeAction_WaitActivationNextUnityScene.Create(0),
 						}
 					);
 				}

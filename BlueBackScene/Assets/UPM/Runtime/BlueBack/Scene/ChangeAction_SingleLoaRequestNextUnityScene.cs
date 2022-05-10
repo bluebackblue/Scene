@@ -19,12 +19,12 @@ namespace BlueBack.Scene
 		*/
 		public enum ID{Default=0}
 
-		/** CreateActionBox
+		/** Create
 
 			a_sceneactivation_allow : シーンを起動。
 
 		*/
-		public static ChangeAction_Item_Base CreateActionBox(bool a_sceneactivation_allow)
+		public static ChangeAction_Item_Base Create(bool a_sceneactivation_allow)
 		{
 			return new ChangeAction_Item<ChangeAction_SingleLoaRequestNextUnityScene.ID>(new ChangeAction_SingleLoaRequestNextUnityScene(a_sceneactivation_allow),ChangeAction_SingleLoaRequestNextUnityScene.ID.Default);
 		}

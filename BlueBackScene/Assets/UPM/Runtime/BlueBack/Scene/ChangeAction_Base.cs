@@ -20,14 +20,14 @@ namespace BlueBack.Scene
 			return == true : 完了。
 
 		*/
-		void Change(ID a_id,Scene a_scene);
+		void Change(ID a_id,BlueBack.Scene.Scene a_scene);
 
 		/** [ChangeAction_Base<ID>]Action
 
 			return == true : 完了。
 
 		*/
-		bool Action(ID a_id,Scene a_scene);
+		bool Action(ID a_id,BlueBack.Scene.Scene a_scene);
 	}
 }
 
