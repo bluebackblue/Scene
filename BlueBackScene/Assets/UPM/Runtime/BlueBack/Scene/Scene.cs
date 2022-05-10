@@ -188,6 +188,12 @@ namespace BlueBack.Scene
 
 					//fix
 					if(t_fix == true){
+						Scene_Base t_prev_scene = this.scene_current;
+
+						if(this.scene_current != null){
+							this.scene_current.SceneEnd(this.scene_next);
+						}
+
 						this.scene_current = this.scene_next;
 						this.scene_next = null;
 
@@ -196,7 +202,7 @@ namespace BlueBack.Scene
 
 						this.phase = PhaseType.Running;
 
-						this.scene_current.SceneChange();
+						this.scene_current.SceneStart(t_prev_scene);
 					}
 				}break;
 			case PhaseType.Running:

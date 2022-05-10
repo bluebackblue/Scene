@@ -19,9 +19,19 @@ namespace BlueBack.Scene
 		*/
 		string GetSceneName();
 
-		/** [BlueBack.Scene.Scene_Base]シーン変更。
+		/** [BlueBack.Scene.Scene_Base]シーン開始。
+
+			a_prev_scene : 前のシーン。
+
 		*/
-		void SceneChange();
+		void SceneStart(BlueBack.Scene.Scene_Base a_prev_scene);
+
+		/** [BlueBack.Scene.Scene_Base]シーン終了。
+
+			a_next_scene : 次のシーン。
+
+		*/
+		void SceneEnd(BlueBack.Scene.Scene_Base a_next_scene);
 
 		/** [BlueBack.Scene.Scene_Base]UnityUpdate
 		*/

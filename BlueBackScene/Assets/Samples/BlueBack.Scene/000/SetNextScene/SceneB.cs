@@ -36,9 +36,12 @@ namespace BlueBack.Scene.Samples.SetNextScene
 			return "SceneB";
 		}
 
-		/** [BlueBack.Scene.Scene_Base]シーン変更。
+		/** [BlueBack.Scene.Scene_Base]シーン開始。
+
+			a_prev_scene : 前のシーン。
+
 		*/
-		public void SceneChange()
+		public void SceneStart(BlueBack.Scene.Scene_Base a_prev_scene)
 		{
 			//fadein
 			this.fadein_flag = true;
@@ -46,6 +49,15 @@ namespace BlueBack.Scene.Samples.SetNextScene
 
 			//time
 			this.time = UnityEngine.Time.realtimeSinceStartup;
+		}
+
+		/** [BlueBack.Scene.Scene_Base]シーン終了。
+
+			a_next_scene : 次のシーン。
+
+		*/
+		public void SceneEnd(BlueBack.Scene.Scene_Base a_next_scene)
+		{
 		}
 
 		/** [BlueBack.Scene.Scene_Base]UnityUpdate
