@@ -52,7 +52,7 @@ namespace BlueBack.Scene
 			DebugTool.Log("ChangeAction_SingleLoaRequestNextUnityScene : Change");
 			#endif
 
-			string t_scene_name = a_scene.scene_next.GetSceneName();
+			string t_scene_name = a_scene.scene_next.GetUnitySceneName();
 			if(t_scene_name != null){
 				a_scene.loadscene_async = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(t_scene_name,UnityEngine.SceneManagement.LoadSceneMode.Single);
 				if(a_scene.loadscene_async != null){

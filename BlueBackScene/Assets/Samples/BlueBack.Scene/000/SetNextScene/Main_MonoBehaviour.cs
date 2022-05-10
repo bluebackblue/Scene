@@ -19,7 +19,7 @@ namespace BlueBack.Scene.Samples.SetNextScene
 			BlueBack.Scene.Scene t_scene = new BlueBack.Scene.Scene();
 
 			t_scene.SetNextScene(
-				new SceneA(t_scene),
+				new SceneA(t_scene,0),
 				new ChangeAction_Item_Base[]{
 					//シーンロード開始。
 					BlueBack.Scene.ChangeAction_SingleLoaRequestNextUnityScene.Create(false),

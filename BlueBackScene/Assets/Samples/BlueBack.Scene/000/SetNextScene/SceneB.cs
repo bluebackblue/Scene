@@ -11,6 +11,7 @@ namespace BlueBack.Scene.Samples.SetNextScene
 		/** scene
 		*/
 		private BlueBack.Scene.Scene scene;
+		private int scene_index;
 
 		/** fadein_time
 		*/
@@ -23,17 +24,28 @@ namespace BlueBack.Scene.Samples.SetNextScene
 
 		/** constructor
 		*/
-		public SceneB(BlueBack.Scene.Scene a_scene)
+		public SceneB(BlueBack.Scene.Scene a_scene,int a_scene_index)
 		{
 			//scene
 			this.scene = a_scene;
+			this.scene_index = a_scene_index;
 		}
 
-		/** [BlueBack.Scene.Scene_Base]シーン名。
+		/** [BlueBack.Scene.Scene_Base]ユニティーシーン名。取得。
 		*/
-		public string GetSceneName()
+		public string GetUnitySceneName()
 		{
 			return "SceneB";
+		}
+
+		/** [BlueBack.Scene.Scene_Base]シーンインデックス。取得。
+
+			任意の値。
+
+		*/
+		public int GetSceneIndex()
+		{
+			return this.scene_index;
 		}
 
 		/** [BlueBack.Scene.Scene_Base]シーン開始。
@@ -78,7 +90,7 @@ namespace BlueBack.Scene.Samples.SetNextScene
 				float t_delta = UnityEngine.Time.realtimeSinceStartup - this.time;
 				if(t_delta >= 3.0f){
 					this.scene.SetNextScene(
-						new SceneA(this.scene),
+						new SceneA(this.scene,0),
 						new ChangeAction_Item_Base[]{
 							//シーンロード開始。
 							BlueBack.Scene.ChangeAction_SingleLoaRequestNextUnityScene.Create(false),

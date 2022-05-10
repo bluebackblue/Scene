@@ -15,9 +15,16 @@ namespace BlueBack.Scene
 	*/
 	public interface Scene_Base
 	{
-		/** [BlueBack.Scene.Scene_Base]シーン名。
+		/** [BlueBack.Scene.Scene_Base]ユニティーシーン名。取得。
 		*/
-		string GetSceneName();
+		string GetUnitySceneName();
+
+		/** [BlueBack.Scene.Scene_Base]シーンインデックス。取得。
+
+			任意の値。
+
+		*/
+		int GetSceneIndex();
 
 		/** [BlueBack.Scene.Scene_Base]シーン開始。
 
