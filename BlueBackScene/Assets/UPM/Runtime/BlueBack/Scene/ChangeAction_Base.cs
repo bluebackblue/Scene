@@ -3,7 +3,7 @@
 /**
 	Copyright (c) blueback
 	Released under the MIT License
-	@brief シーン。
+	@brief シーン。変更アクション。
 */
 
 

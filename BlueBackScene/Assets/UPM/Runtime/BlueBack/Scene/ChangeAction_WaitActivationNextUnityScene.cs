@@ -3,7 +3,7 @@
 /**
 	Copyright (c) blueback
 	Released under the MIT License
-	@brief シーン。
+	@brief シーン。変更アクション。
 */
 
 
@@ -24,9 +24,9 @@ namespace BlueBack.Scene
 			a_add_wait_frame			: 追加で待つフレーム数。
 
 		*/
-		public static ChangeAction_Box_Base CreateActionBox(int a_add_wait_frame)
+		public static ChangeAction_Item_Base CreateActionBox(int a_add_wait_frame)
 		{
-			return new ChangeAction_Box<ChangeAction_WaitActivationNextUnityScene.ID>(new ChangeAction_WaitActivationNextUnityScene(a_add_wait_frame),ChangeAction_WaitActivationNextUnityScene.ID.Default);
+			return new ChangeAction_Item<ChangeAction_WaitActivationNextUnityScene.ID>(new ChangeAction_WaitActivationNextUnityScene(a_add_wait_frame),ChangeAction_WaitActivationNextUnityScene.ID.Default);
 		}
 
 		/** add_wait_frame
@@ -70,10 +70,6 @@ namespace BlueBack.Scene
 		*/
 		public bool Action(ChangeAction_WaitActivationNextUnityScene.ID a_id,Scene a_scene)
 		{
-			#if(DEF_BLUEBACK_SCENE_LOG)
-			DebugTool.Log("ChangeAction_WaitActivationNextUnityScene : Action");
-			#endif
-
 			if(a_scene.loadscene_async != null){
 				if(a_scene.loadscene_async.isDone == true){
 					a_scene.loadscene_async = null;

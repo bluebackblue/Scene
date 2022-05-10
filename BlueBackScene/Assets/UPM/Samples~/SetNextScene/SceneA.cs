@@ -53,6 +53,7 @@ namespace BlueBack.Scene.Samples.SetNextScene
 		public void UnityUpdate(BlueBack.Scene.PhaseType a_phase)
 		{
 			if(a_phase == PhaseType.Running){
+				//フェードイン。
 				if(this.fadein_flag == true){
 					this.fadein_time += UnityEngine.Time.deltaTime;
 					float t_value = UnityEngine.Mathf.Clamp01(3.0f - this.fadein_time * 3);
@@ -67,7 +68,7 @@ namespace BlueBack.Scene.Samples.SetNextScene
 				if(t_delta >= 3.0f){
 					this.scene.SetNextScene(
 						new SceneB(this.scene),
-						new ChangeAction_Box_Base[]{
+						new ChangeAction_Item_Base[]{
 							//シーンロード開始。
 							BlueBack.Scene.ChangeAction_SingleLoaRequestNextUnityScene.CreateActionBox(false),
 							//フェードアウト。
@@ -77,6 +78,8 @@ namespace BlueBack.Scene.Samples.SetNextScene
 						}
 					);
 				}
+			}else{
+				//シーン変更中。
 			}
 		}
 

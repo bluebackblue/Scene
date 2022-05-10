@@ -67,7 +67,7 @@ namespace BlueBack.Scene.Samples.SetNextScene
 				if(t_delta >= 3.0f){
 					this.scene.SetNextScene(
 						new SceneA(this.scene),
-						new ChangeAction_Box_Base[]{
+						new ChangeAction_Item_Base[]{
 							//シーンロード開始。
 							BlueBack.Scene.ChangeAction_SingleLoaRequestNextUnityScene.CreateActionBox(false),
 							//フェードアウト。
@@ -77,6 +77,8 @@ namespace BlueBack.Scene.Samples.SetNextScene
 						}
 					);
 				}
+			}else{
+				//シーン変更中。
 			}
 		}
 

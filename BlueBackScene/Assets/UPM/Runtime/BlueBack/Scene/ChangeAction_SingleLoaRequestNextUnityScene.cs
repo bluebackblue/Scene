@@ -3,7 +3,7 @@
 /**
 	Copyright (c) blueback
 	Released under the MIT License
-	@brief シーン。
+	@brief シーン。変更アクション。
 */
 
 
@@ -24,9 +24,9 @@ namespace BlueBack.Scene
 			a_sceneactivation_allow : シーンを起動。
 
 		*/
-		public static ChangeAction_Box_Base CreateActionBox(bool a_sceneactivation_allow)
+		public static ChangeAction_Item_Base CreateActionBox(bool a_sceneactivation_allow)
 		{
-			return new ChangeAction_Box<ChangeAction_SingleLoaRequestNextUnityScene.ID>(new ChangeAction_SingleLoaRequestNextUnityScene(a_sceneactivation_allow),ChangeAction_SingleLoaRequestNextUnityScene.ID.Default);
+			return new ChangeAction_Item<ChangeAction_SingleLoaRequestNextUnityScene.ID>(new ChangeAction_SingleLoaRequestNextUnityScene(a_sceneactivation_allow),ChangeAction_SingleLoaRequestNextUnityScene.ID.Default);
 		}
 
 		/** シーンを起動。
@@ -74,10 +74,6 @@ namespace BlueBack.Scene
 		*/
 		public bool Action(ChangeAction_SingleLoaRequestNextUnityScene.ID a_id,Scene a_scene)
 		{
-			#if(DEF_BLUEBACK_SCENE_LOG)
-			DebugTool.Log("ChangeAction_SingleLoaRequestNextUnityScene : Action");
-			#endif
-
 			return true;
 		}
 	}

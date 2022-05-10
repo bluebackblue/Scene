@@ -17,7 +17,7 @@ namespace BlueBack.Scene
 	{
 		/** action
 		*/
-		public ChangeAction_Box_Base[] action_boxlist;
+		public ChangeAction_Item_Base[] action_changeaction_list;
 		public int action_index;
 
 		/** phase
@@ -32,7 +32,7 @@ namespace BlueBack.Scene
 		/** request
 		*/
 		public Scene_Base request_scene;
-		public ChangeAction_Box_Base[] request_action_boxlist;
+		public ChangeAction_Item_Base[] request_changeaction_list;
 
 		/** loadscene_async
 		*/
@@ -47,7 +47,7 @@ namespace BlueBack.Scene
 		public Scene()
 		{
 			//action
-			this.action_boxlist = null;
+			this.action_changeaction_list = null;
 			this.action_index = 0;
 
 			//phase
@@ -59,7 +59,7 @@ namespace BlueBack.Scene
 
 			//request
 			this.request_scene = null;
-			this.request_action_boxlist = null;
+			this.request_changeaction_list = null;
 
 			//loadscene_async
 			this.loadscene_async = null;
@@ -86,19 +86,18 @@ namespace BlueBack.Scene
 
 		/** SetNextScene
 		*/
-		public void SetNextScene(Scene_Base a_scene,ChangeAction_Box_Base[] a_action_boxlist)
+		public void SetNextScene(Scene_Base a_scene,ChangeAction_Item_Base[] a_changeaction_list)
 		{
 			//request
 			this.request_scene = a_scene;
-			this.request_action_boxlist = a_action_boxlist;
+			this.request_changeaction_list = a_changeaction_list;
 		}
 
 		/** [BlueBack.Scene.UnityCallBack_Base]UnityUpdate
 		*/
 		public void UnityUpdate()
 		{
-			this.Inner_Update();
-
+			this.Inner_PhaseUpdate();
 			if(this.scene_current != null){
 				this.scene_current.UnityUpdate(this.phase);
 			}
@@ -122,9 +121,9 @@ namespace BlueBack.Scene
 			}
 		}
 
-		/** Inner_Update
+		/** Inner_PhaseUpdate
 		*/
-		private void Inner_Update()
+		private void Inner_PhaseUpdate()
 		{
 			switch(this.phase){
 			case PhaseType.Boot:
@@ -143,18 +142,18 @@ namespace BlueBack.Scene
 						this.scene_next = this.request_scene;
 						
 						//action
-						this.action_boxlist = this.request_action_boxlist;
+						this.action_changeaction_list = this.request_changeaction_list;
 						this.action_index = 0;
 
 						//request
 						this.request_scene = null;
-						this.request_action_boxlist = null;
+						this.request_changeaction_list = null;
 
 						//phase
 						this.phase = PhaseType.ChangeAction;
 
 						//Change
-						this.action_boxlist[this.action_index].Change(this);
+						this.action_changeaction_list[this.action_index].Change(this);
 					}
 				}break;
 			case PhaseType.ChangeAction:
@@ -164,16 +163,15 @@ namespace BlueBack.Scene
 					#endif
 
 					//Action
-					if(this.action_boxlist[this.action_index].Action(this) == true){
+					if(this.action_changeaction_list[this.action_index].Action(this) == true){
 						this.action_index++;
-						if(this.action_index < this.action_boxlist.Length){
-							this.action_boxlist[this.action_index].Change(this);
+						if(this.action_index < this.action_changeaction_list.Length){
+							this.action_changeaction_list[this.action_index].Change(this);
 						}else{
-
 							this.scene_current = this.scene_next;
 							this.scene_next = null;
 
-							this.action_boxlist = null;
+							this.action_changeaction_list = null;
 							this.action_index = 0;
 
 							this.phase = PhaseType.Running;
@@ -191,18 +189,18 @@ namespace BlueBack.Scene
 						this.scene_next = this.request_scene;
 
 						//action
-						this.action_boxlist = this.request_action_boxlist;
+						this.action_changeaction_list = this.request_changeaction_list;
 						this.action_index = 0;
 
 						//request
 						this.request_scene = null;
-						this.request_action_boxlist = null;
+						this.request_changeaction_list = null;
 
 						//phase
 						this.phase = PhaseType.ChangeAction;
 
 						//Change
-						this.action_boxlist[this.action_index].Change(this);
+						this.action_changeaction_list[this.action_index].Change(this);
 					}
 				}break;
 			}

@@ -14,9 +14,9 @@ namespace BlueBack.Scene.Samples.SetNextScene
 
 		/** CreateActionBox
 		*/
-		public static ChangeAction_Box_Base CreateActionBox()
+		public static ChangeAction_Item_Base CreateActionBox()
 		{
-			return new ChangeAction_Box<SceneChangeAction_FadeOut.ID>(new SceneChangeAction_FadeOut(),SceneChangeAction_FadeOut.ID.Default);
+			return new ChangeAction_Item<SceneChangeAction_FadeOut.ID>(new SceneChangeAction_FadeOut(),SceneChangeAction_FadeOut.ID.Default);
 		}
 
 		/** time

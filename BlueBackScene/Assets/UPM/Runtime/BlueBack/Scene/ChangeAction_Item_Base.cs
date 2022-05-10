@@ -3,7 +3,7 @@
 /**
 	Copyright (c) blueback
 	Released under the MIT License
-	@brief シーン。
+	@brief シーン。変更アクション。
 */
 
 
@@ -11,15 +11,15 @@
 */
 namespace BlueBack.Scene
 {
-	/** ChangeAction_Box_Base
+	/** ChangeAction_Item_Base
 	*/
-	public interface ChangeAction_Box_Base
+	public interface ChangeAction_Item_Base
 	{
-		/** [ChangeAction_Box_Base]Change
+		/** [ChangeAction_Item_Base]Change
 		*/
 		void Change(Scene a_scene);
 
-		/** [ChangeAction_Box_Base]Action
+		/** [ChangeAction_Item_Base]Action
 
 			return == true : 完了。
 
