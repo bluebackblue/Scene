@@ -12,6 +12,11 @@ namespace BlueBack.Scene.Samples.SetNextScene
 		*/
 		private BlueBack.Scene.Scene scene;
 
+		/** fadein_time
+		*/
+		public bool fadein_flag;
+		public float fadein_time;
+
 		/** time
 		*/
 		private float time;
@@ -20,8 +25,8 @@ namespace BlueBack.Scene.Samples.SetNextScene
 		*/
 		public SceneB(BlueBack.Scene.Scene a_scene)
 		{
+			//scene
 			this.scene = a_scene;
-			this.time = 0.0f;
 		}
 
 		/** [BlueBack.Scene.Scene_Base]シーン名。
@@ -31,113 +36,59 @@ namespace BlueBack.Scene.Samples.SetNextScene
 			return "SceneB";
 		}
 
-		/** [BlueBack.Scene.Scene_Base]前シーン。終了。初回。
+		/** [BlueBack.Scene.Scene_Base]シーン変更。
 		*/
-		public void BeforeSceneEndFirst()
+		public void SceneChange()
 		{
-			UnityEngine.Debug.Log(this.GetType().ToString() + " : BeforeSceneEndFirst");
+			//fadein
+			this.fadein_flag = true;
+			this.fadein_time = 0.0f;
+
+			//time
+			this.time = UnityEngine.Time.realtimeSinceStartup;
 		}
 
-		/** [BlueBack.Scene.Scene_Base]前シーン。終了。
+		/** [BlueBack.Scene.Scene_Base]UnityUpdate
 		*/
-		public void BeforeSceneEnd()
+		public void UnityUpdate(BlueBack.Scene.PhaseType a_phase)
 		{
-			UnityEngine.Debug.Log(this.GetType().ToString() + " : BeforeSceneEnd");
-		}
+			if(a_phase == PhaseType.Running){
+				if(this.fadein_flag == true){
+					this.fadein_time += UnityEngine.Time.deltaTime;
+					float t_value = UnityEngine.Mathf.Clamp01(3.0f - this.fadein_time * 3);
+					UnityEngine.GameObject.Find("Image").GetComponent<UnityEngine.UI.Image>().material.SetFloat("visible",t_value);
+					if(t_value <= 0.0f){
+						this.fadein_time = 0.0f;
+						this.fadein_flag = false;
+					}
+				}
 
-		/** [BlueBack.Scene.Scene_Base]前シーン。終了。ラスト。
-		*/
-		public void BeforeSceneEndLast()
-		{
-			UnityEngine.Debug.Log(this.GetType().ToString() + " : BeforeSceneEndLast");
-		}
-
-		/** [BlueBack.Scene.Scene_Base]カレントシーン。開始。初回。
-		*/
-		public void CurrentSceneStartFirst()
-		{
-			UnityEngine.Debug.Log(this.GetType().ToString() + " : CurrentSceneStartFirst");
-		}
-
-		/** [BlueBack.Scene.Scene_Base]カレントシーン。開始。
-
-			a_is_sceneloadend	: シーンの読み込みが完了したかどうか。 
-			return == true		: CurrentSceneRunningへの遷移を許可。
-
-		*/
-		public bool CurrentSceneStart(bool a_is_sceneloadend)
-		{
-			UnityEngine.Debug.Log(this.GetType().ToString() + " : CurrentSceneStart : " +  a_is_sceneloadend.ToString() + " : " + UnityEngine.Time.deltaTime.ToString());
-
-			if(a_is_sceneloadend == false){
-				this.time = 0.0f;
-				UnityEngine.GameObject.Find("Image").GetComponent<UnityEngine.UI.Image>().material.SetFloat("visible",1.0f);
-			}else{
-				this.time += UnityEngine.Time.deltaTime;
-				float t_value = UnityEngine.Mathf.Clamp01(1.0f - this.time * 3);
-				UnityEngine.GameObject.Find("Image").GetComponent<UnityEngine.UI.Image>().material.SetFloat("visible",t_value);
-				if(t_value <= 0.0f){
-					this.time = 0.0f;
-					return true;
+				float t_delta = UnityEngine.Time.realtimeSinceStartup - this.time;
+				if(t_delta >= 3.0f){
+					this.scene.SetNextScene(
+						new SceneA(this.scene),
+						new ChangeAction_Box_Base[]{
+							//シーンロード開始。
+							BlueBack.Scene.ChangeAction_SingleLoaRequestNextUnityScene.CreateActionBox(false),
+							//フェードアウト。
+							SceneChangeAction_FadeOut.CreateActionBox(),
+							//シーンロード待ち。
+							BlueBack.Scene.ChangeAction_WaitActivationNextUnityScene.CreateActionBox(0),
+						}
+					);
 				}
 			}
-
-			return false;
 		}
 
-		/** [BlueBack.Scene.Scene_Base]カレントシーン。実行。
+		/** [BlueBack.Scene.Scene_Base]UnityFixedUpdate
 		*/
-		public bool CurrentSceneRunning()
-		{
-			return true;
-		}
-
-		/** [BlueBack.Scene.Scene_Base]カレントシーン。終了。初回。
-		*/
-		public void CurrentSceneEndFirst()
-		{
-			UnityEngine.Debug.Log(this.GetType().ToString() + " : CurrentSceneEndFirst");
-			this.time = 0.0f;
-		}
-
-		/** [BlueBack.Scene.Scene_Base]カレントシーン。終了。
-		*/
-		public bool CurrentSceneEnd()
-		{
-			UnityEngine.Debug.Log(this.GetType().ToString() + " : CurrentSceneEnd");
-
-			this.time += UnityEngine.Time.deltaTime;
-
-			float t_value = UnityEngine.Mathf.Clamp01(this.time * 3);
-			UnityEngine.GameObject.Find("Image").GetComponent<UnityEngine.UI.Image>().material.SetFloat("visible",t_value);
-			if(t_value >= 1.0f){
-				return true;
-			}
-			return false;
-		}
-
-		/** [BlueBack.Scene.Scene_Base]更新。
-		*/
-		public void UnityUpdate()
-		{
-			UnityEngine.Debug.Log(this.GetType().ToString() + " : UnityUpdate");
-
-			this.time += UnityEngine.Time.deltaTime;
-
-			if(this.time > 1.0f){
-				this.scene.SetNextScene(new SceneA(this.scene));
-			}
-		}
-
-		/** [BlueBack.Scene.Scene_Base]更新。
-		*/
-		public void UnityLateUpdate()
+		public void UnityFixedUpdate(BlueBack.Scene.PhaseType a_phase)
 		{
 		}
 
-		/** [BlueBack.Scene.Scene_Base]更新。
+		/** [BlueBack.Scene.Scene_Base]UnityLateUpdate
 		*/
-		public void UnityFixedUpdate()
+		public void UnityLateUpdate(BlueBack.Scene.PhaseType a_phase)
 		{
 		}
 	}

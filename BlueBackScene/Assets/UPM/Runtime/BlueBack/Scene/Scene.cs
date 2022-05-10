@@ -13,28 +13,30 @@ namespace BlueBack.Scene
 {
 	/** Scene
 	*/
-	public sealed class Scene : System.IDisposable
+	public sealed class Scene : System.IDisposable , UnityCallBack_Base
 	{
+		/** action
+		*/
+		public ChangeAction_Box_Base[] action_boxlist;
+		public int action_index;
+
 		/** phase
 		*/
-		private PhaseType phase;
+		public PhaseType phase;
 
 		/** scene
 		*/
-		private Scene_Base scene_current;
-		private Scene_Base scene_request;
-		private Scene_Base scene_next;
+		public Scene_Base scene_current;
+		public Scene_Base scene_next;
 
-		/** async
+		/** request
 		*/
-		private UnityEngine.AsyncOperation async;
+		public Scene_Base request_scene;
+		public ChangeAction_Box_Base[] request_action_boxlist;
 
-		/** startdelay
-
-			「this.async.isDone == true」直後はフレームレートが下がる。
-
+		/** loadscene_async
 		*/
-		private int startdelay;
+		public UnityEngine.AsyncOperation loadscene_async;
 
 		/** callback_gameobject
 		*/
@@ -44,24 +46,28 @@ namespace BlueBack.Scene
 		*/
 		public Scene()
 		{
+			//action
+			this.action_boxlist = null;
+			this.action_index = 0;
+
 			//phase
-			this.phase = PhaseType.Null;
+			this.phase = PhaseType.Boot;
 
 			//scene
 			this.scene_current = null;
-			this.scene_request = null;
 			this.scene_next = null;
 
-			//async
-			this.async = null;
+			//request
+			this.request_scene = null;
+			this.request_action_boxlist = null;
 
-			//startdelay
-			this.startdelay = 0;
+			//loadscene_async
+			this.loadscene_async = null;
 
 			//callback
 			this.callback_gameobject = new UnityEngine.GameObject("Scene");
 			UnityEngine.GameObject.DontDestroyOnLoad(this.callback_gameobject);
-			this.callback_gameobject.AddComponent<CallBack_MonoBehaviour>().scene = this;
+			this.callback_gameobject.AddComponent<UnityCallBack_MonoBehaviour>().unitycallback = this;
 
 			#if(DEF_BLUEBACK_SCENE_HIDEINNERGAMEOBJECT)
 			this.callback_gameobject.hideFlags = UnityEngine.HideFlags.HideInHierarchy;
@@ -78,166 +84,125 @@ namespace BlueBack.Scene
 			}
 		}
 
-		/** GetCurrentScene
-		*/
-		public Scene_Base GetCurrentScene()
-		{
-			return this.scene_current;
-		}
-
-		/** GetNextScene
-		*/
-		public Scene_Base GetNextScene()
-		{
-			return this.scene_request;
-		}
-
 		/** SetNextScene
 		*/
-		public void SetNextScene(Scene_Base a_scene)
+		public void SetNextScene(Scene_Base a_scene,ChangeAction_Box_Base[] a_action_boxlist)
 		{
-			this.scene_request = a_scene;
+			//request
+			this.request_scene = a_scene;
+			this.request_action_boxlist = a_action_boxlist;
 		}
 
-		/** IsNextScene
+		/** [BlueBack.Scene.UnityCallBack_Base]UnityUpdate
 		*/
-		public bool IsNextScene()
+		public void UnityUpdate()
 		{
-			return (this.scene_request != null);
-		}
+			this.Inner_Update();
 
-		/** OnUnityUpdate
-		*/
-		public void OnUnityUpdate()
-		{
-			this.Inner_PhaseUpdate();
-			if(this.phase == PhaseType.Running){
-				this.scene_current.UnityUpdate();
+			if(this.scene_current != null){
+				this.scene_current.UnityUpdate(this.phase);
 			}
 		}
 
-		/** OnUnityLateUpdate
+		/** [BlueBack.Scene.UnityCallBack_Base]UnityFixedUpdate
 		*/
-		public void OnUnityLateUpdate()
+		public void UnityFixedUpdate()
 		{
-			if(this.phase == PhaseType.Running){
-				this.scene_current.UnityLateUpdate();
+			if(this.scene_current != null){
+				this.scene_current.UnityFixedUpdate(this.phase);
 			}
 		}
 
-		/** OnUnityFixedUpdate
+		/** [BlueBack.Scene.UnityCallBack_Base]UnityLateUpdate
 		*/
-		public void OnUnityFixedUpdate()
+		public void UnityLateUpdate()
 		{
-			if(this.phase == PhaseType.Running){
-				this.scene_current.UnityFixedUpdate();
+			if(this.scene_current != null){
+				this.scene_current.UnityLateUpdate(this.phase);
 			}
 		}
 
-		/** Inner_PhaseUpdate
+		/** Inner_Update
 		*/
-		private void Inner_PhaseUpdate()
+		private void Inner_Update()
 		{
 			switch(this.phase){
-			case PhaseType.Null:
+			case PhaseType.Boot:
 				{
-					if(this.scene_request != null){
+					//起動。
+
+					#if(DEF_BLUEBACK_SCENE_LOG)
+					DebugTool.Log(string.Format("{0} : {1}","Inner_Update",this.phase));
+					#endif
+
+					if(this.request_scene != null){
 						//リクエストあり。
-						this.scene_current = this.scene_request;
-						this.scene_request = null;
-						this.phase = PhaseType.StartFirst;
 
-						//シーン。読み込み開始。
-						string t_scene_name = this.scene_current.GetSceneName();
-						if(t_scene_name != null){
-							this.async = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(t_scene_name,UnityEngine.SceneManagement.LoadSceneMode.Single);
-							if(this.async != null){
-								this.async.allowSceneActivation = true;
-							}else{
-								#if(DEF_BLUEBACK_SCENE_ASSERT)
-								DebugTool.Assert(false,t_scene_name);
-								#endif
-							}
-						}
+						//scene
+						this.scene_current = null;
+						this.scene_next = this.request_scene;
+						
+						//action
+						this.action_boxlist = this.request_action_boxlist;
+						this.action_index = 0;
+
+						//request
+						this.request_scene = null;
+						this.request_action_boxlist = null;
+
+						//phase
+						this.phase = PhaseType.ChangeAction;
+
+						//Change
+						this.action_boxlist[this.action_index].Change(this);
 					}
 				}break;
-			case PhaseType.StartFirst:
+			case PhaseType.ChangeAction:
 				{
-					//開始。初回。
+					#if(DEF_BLUEBACK_SCENE_LOG)
+					DebugTool.Log(string.Format("{0} : {1}","Inner_Update",this.phase));
+					#endif
 
-					this.scene_current.CurrentSceneStartFirst();
-					this.phase = PhaseType.Start;
-					this.startdelay = 0;
-				}break;
-			case PhaseType.Start:
-				{
-					//開始。
+					//Action
+					if(this.action_boxlist[this.action_index].Action(this) == true){
+						this.action_index++;
+						if(this.action_index < this.action_boxlist.Length){
+							this.action_boxlist[this.action_index].Change(this);
+						}else{
 
-					bool t_fix = true;
+							this.scene_current = this.scene_next;
+							this.scene_next = null;
 
-					if(this.async != null){
-						t_fix = false;
-						if(this.async.isDone == true){
-							this.async = null;
-							this.startdelay = 5;
-						}
-					}else if(this.startdelay > 0){
-						this.startdelay--;
-						t_fix = false;
-					}
+							this.action_boxlist = null;
+							this.action_index = 0;
 
-					if(this.scene_current.CurrentSceneStart(t_fix) == true){
-						if(t_fix == true){
 							this.phase = PhaseType.Running;
+
+							this.scene_current.SceneChange();
 						}
 					}
 				}break;
 			case PhaseType.Running:
 				{
-					//実行。
+					if(this.request_scene != null){
+						//リクエストあり。
 
-					if(this.scene_current.CurrentSceneRunning() == true){
-						//シーン遷移を許可。
-						if(this.scene_request != null){
-							this.scene_next = this.scene_request;
-							this.scene_request = null;
-							this.phase = PhaseType.EndFirst;
-						}
-					}
-				}break;
-			case PhaseType.EndFirst:
-				{
-					//終了。初回。
+						//scene
+						this.scene_next = this.request_scene;
 
-					this.scene_current.CurrentSceneEndFirst();
-					this.scene_next.BeforeSceneEndFirst();
-					this.phase = PhaseType.End;
+						//action
+						this.action_boxlist = this.request_action_boxlist;
+						this.action_index = 0;
 
-					//シーン。読み込み開始。
-					string t_scene_name = this.scene_next.GetSceneName();
-					if(t_scene_name != null){
-						this.async = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(t_scene_name,UnityEngine.SceneManagement.LoadSceneMode.Single);
-						this.async.allowSceneActivation = false;
-					}
-				}break;
-			case PhaseType.End:
-				{
-					//終了。
+						//request
+						this.request_scene = null;
+						this.request_action_boxlist = null;
 
-					if(this.scene_current.CurrentSceneEnd() == true){
-						//終了シーン。完了。
-						this.scene_next.BeforeSceneEndLast();
-						this.scene_current = this.scene_next;
-						this.scene_next = null;
-						this.phase = PhaseType.StartFirst;
-						this.startdelay = 0;
+						//phase
+						this.phase = PhaseType.ChangeAction;
 
-						//シーン。許可。
-						if(this.async != null){
-							this.async.allowSceneActivation = true;
-						}
-					}else{
-						this.scene_next.BeforeSceneEnd();
+						//Change
+						this.action_boxlist[this.action_index].Change(this);
 					}
 				}break;
 			}

@@ -8,14 +8,6 @@ namespace BlueBack.Scene.Samples.SetNextScene
 	*/
 	public class Main_MonoBehaviour : UnityEngine.MonoBehaviour
 	{
-		/** scene
-		*/
-		private BlueBack.Scene.Scene scene;
-
-		/** canvas_gameobject
-		*/
-		private UnityEngine.GameObject canvas_gameobject;
-
 		/** Start
 		*/
 		private void Start()
@@ -24,8 +16,17 @@ namespace BlueBack.Scene.Samples.SetNextScene
 			UnityEngine.GameObject.Find("Image").GetComponent<UnityEngine.UI.Image>().material.SetFloat("visible",1.0f);
 
 			UnityEngine.GameObject.DontDestroyOnLoad(this.gameObject);
-			this.scene = new BlueBack.Scene.Scene();
-			this.scene.SetNextScene(new SceneA(this.scene));
+			BlueBack.Scene.Scene t_scene = new BlueBack.Scene.Scene();
+
+			t_scene.SetNextScene(
+				new SceneA(t_scene),
+				new ChangeAction_Box_Base[]{
+					//シーンロード開始。
+					BlueBack.Scene.ChangeAction_SingleLoaRequestNextUnityScene.CreateActionBox(false),
+					//シーンロード待ち。
+					BlueBack.Scene.ChangeAction_WaitActivationNextUnityScene.CreateActionBox(0),
+				}
+			);
 		}
 	}
 }

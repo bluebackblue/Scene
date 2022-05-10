@@ -14,7 +14,7 @@ MIT License
 * https://github.com/bluebackblue/UpmScene
 
 ## 動作確認
-Unity 2022.1.0b12
+Unity 2022.1.0b16
 
 ## UPM
 ### 最新

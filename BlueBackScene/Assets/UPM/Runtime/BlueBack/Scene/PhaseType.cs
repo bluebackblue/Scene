@@ -15,9 +15,19 @@ namespace BlueBack.Scene
 	*/
 	public enum PhaseType
 	{
-		/** Null
+		/** Boot
 		*/
-		Null,
+		Boot,
+
+		/** ChangeAction
+		*/
+		ChangeAction,
+
+		/** 実行。
+		*/
+		Running,
+
+		#if(false)
 
 		/** 開始。初回。
 		*/
@@ -38,6 +48,8 @@ namespace BlueBack.Scene
 		/** 終了。
 		*/
 		End,
+
+		#endif
 	}
 }
 

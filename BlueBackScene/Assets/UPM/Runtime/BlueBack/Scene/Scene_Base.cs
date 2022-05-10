@@ -19,6 +19,24 @@ namespace BlueBack.Scene
 		*/
 		string GetSceneName();
 
+		/** [BlueBack.Scene.Scene_Base]シーン変更。
+		*/
+		void SceneChange();
+
+		/** [BlueBack.Scene.Scene_Base]UnityUpdate
+		*/
+		void UnityUpdate(BlueBack.Scene.PhaseType a_phase);
+
+		/** [BlueBack.Scene.Scene_Base]UnityFixedUpdate
+		*/
+		void UnityFixedUpdate(BlueBack.Scene.PhaseType a_phase);
+
+		/** [BlueBack.Scene.Scene_Base]UnityLateUpdate
+		*/
+		void UnityLateUpdate(BlueBack.Scene.PhaseType a_phase);
+
+		#if(false)
+
 		/** [BlueBack.Scene.Scene_Base]前シーン。終了。初回。
 		*/
 		void BeforeSceneEndFirst();
@@ -72,6 +90,8 @@ namespace BlueBack.Scene
 		/** [BlueBack.Scene.Scene_Base]更新。
 		*/
 		void UnityFixedUpdate();
+
+		#endif
 	}
 }
 
