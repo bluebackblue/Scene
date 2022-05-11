@@ -60,7 +60,9 @@ namespace BlueBack.Scene
 			this.frame = this.add_wait_frame;
 
 			//シーン起動。
-			a_scene.loadscene_async.allowSceneActivation = true;
+			if(a_scene.loadscene_async != null){
+				a_scene.loadscene_async.allowSceneActivation = true;
+			}
 		}
 
 		/** [ChangeAction_Base<ID>]Action
