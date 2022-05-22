@@ -140,7 +140,7 @@ namespace BlueBack.Scene
 						//scene
 						this.scene_current = null;
 						this.scene_next = this.request_scene;
-						
+
 						//action
 						this.action_changeaction_list = this.request_changeaction_list;
 						this.action_index = 0;

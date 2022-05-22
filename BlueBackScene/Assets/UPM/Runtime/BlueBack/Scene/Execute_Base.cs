@@ -21,4 +21,3 @@ namespace BlueBack.Scene
 	}
 }
 
-
