@@ -130,7 +130,7 @@ namespace BlueBack.Scene
 				{
 					//起動。
 
-					#if(DEF_BLUEBACK_SCENE_LOG)
+					#if(DEF_BLUEBACK_LOG)
 					DebugTool.Log(string.Format("{0} : {1}","Inner_Update",this.phase));
 					#endif
 
@@ -162,7 +162,7 @@ namespace BlueBack.Scene
 				}break;
 			case PhaseType.ChangeAction:
 				{
-					#if(DEF_BLUEBACK_SCENE_LOG)
+					#if(DEF_BLUEBACK_LOG)
 					DebugTool.Log(string.Format("{0} : {1}","Inner_Update",this.phase));
 					#endif
 

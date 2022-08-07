@@ -94,7 +94,7 @@ namespace BlueBack.Scene.Samples.SetNextScene
 						new SceneB(this.scene,1),
 						new ChangeAction_Item_Base[]{
 							//シーンロード開始。
-							BlueBack.Scene.ChangeAction_SingleLoaRequestNextUnityScene.Create(false),
+							BlueBack.Scene.ChangeAction_SingleLoadRequestNextUnityScene.Create(false),
 							//フェードアウト。
 							SceneChangeAction_FadeOut.Create(),
 							//シーンロード待ち。

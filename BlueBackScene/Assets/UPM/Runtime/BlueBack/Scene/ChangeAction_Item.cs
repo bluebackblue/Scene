@@ -13,7 +13,7 @@ namespace BlueBack.Scene
 {
 	/** ChangeAction_Item
 	*/
-	public class ChangeAction_Item<ID> : ChangeAction_Item_Base
+	public sealed class ChangeAction_Item<ID> : ChangeAction_Item_Base
 	{
 		/** instance
 		*/

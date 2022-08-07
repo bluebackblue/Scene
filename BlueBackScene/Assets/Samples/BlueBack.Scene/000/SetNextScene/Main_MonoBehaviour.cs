@@ -6,7 +6,7 @@ namespace BlueBack.Scene.Samples.SetNextScene
 {
 	/** Main_MonoBehaviour
 	*/
-	public class Main_MonoBehaviour : UnityEngine.MonoBehaviour
+	public sealed class Main_MonoBehaviour : UnityEngine.MonoBehaviour
 	{
 		/** Start
 		*/
@@ -22,7 +22,7 @@ namespace BlueBack.Scene.Samples.SetNextScene
 				new SceneA(t_scene,0),
 				new ChangeAction_Item_Base[]{
 					//シーンロード開始。
-					BlueBack.Scene.ChangeAction_SingleLoaRequestNextUnityScene.Create(false),
+					BlueBack.Scene.ChangeAction_SingleLoadRequestNextUnityScene.Create(false),
 					//シーンロード待ち。
 					BlueBack.Scene.ChangeAction_WaitActivationNextUnityScene.Create(0),
 				}
