@@ -18,7 +18,7 @@ Unity 2022.1.0b16
 
 ## UPM
 ### 最新
-* https://github.com/bluebackblue/UpmScene.git?path=BlueBackScene/Assets/UPM#0.0.17
+* https://github.com/bluebackblue/UpmScene.git?path=BlueBackScene/Assets/UPM#0.0.18
 ### 開発
 * https://github.com/bluebackblue/UpmScene.git?path=BlueBackScene/Assets/UPM
 
