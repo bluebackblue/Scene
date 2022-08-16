@@ -44,11 +44,11 @@ namespace BlueBack.Scene
 		*/
 		public void Change(ChangeAction_SingleLoadRequestNextUnityScene.ID a_id,Scene a_scene)
 		{
-			#if(DEF_BLUEBACK_ASSERT)
+			#if(DEF_BLUEBACK_DEBUG_ASSERT)
 			DebugTool.Assert(a_scene.loadscene_async == null,"error");
 			#endif
 
-			#if(DEF_BLUEBACK_LOG)
+			#if(DEF_BLUEBACK_DEBUG_LOG)
 			DebugTool.Log("ChangeAction_SingleLoaRequestNextUnityScene : Change");
 			#endif
 
@@ -58,7 +58,7 @@ namespace BlueBack.Scene
 				if(a_scene.loadscene_async != null){
 					a_scene.loadscene_async.allowSceneActivation = this.sceneactivation_allow;
 				}else{
-					#if(DEF_BLUEBACK_ASSERT)
+					#if(DEF_BLUEBACK_DEBUG_ASSERT)
 					DebugTool.Assert(false,t_scene_name);
 					#endif
 				}

@@ -52,7 +52,7 @@ namespace BlueBack.Scene
 		*/
 		public void Change(ChangeAction_WaitActivationNextUnityScene.ID a_id,Scene a_scene)
 		{
-			#if(DEF_BLUEBACK_LOG)
+			#if(DEF_BLUEBACK_DEBUG_LOG)
 			DebugTool.Log("ChangeAction_WaitActivationNextUnityScene : Change");
 			#endif
 

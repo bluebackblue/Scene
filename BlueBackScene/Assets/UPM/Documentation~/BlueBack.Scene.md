@@ -8,6 +8,7 @@ MIT License
 
 ## 依存 / 使用ライセンス等
 ### ランタイム
+* https://github.com/bluebackblue/UpmDebug
 ### エディター
 * https://github.com/bluebackblue/UpmScene
 ### サンプル
@@ -18,7 +19,7 @@ Unity 2022.1.0b16
 
 ## UPM
 ### 最新
-* https://github.com/bluebackblue/UpmScene.git?path=BlueBackScene/Assets/UPM#0.0.18
+* https://github.com/bluebackblue/UpmScene.git?path=BlueBackScene/Assets/UPM#0.0.19
 ### 開発
 * https://github.com/bluebackblue/UpmScene.git?path=BlueBackScene/Assets/UPM
 
