@@ -108,10 +108,6 @@ namespace Editor
 				},
 			};
 		}
-		#else
-		{
-			#warning "ASMDEF_TRUE"
-		}
 		#endif
 	}
 }
