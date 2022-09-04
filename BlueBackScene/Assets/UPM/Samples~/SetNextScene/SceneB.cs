@@ -74,9 +74,9 @@ namespace BlueBack.Scene.Samples.SetNextScene
 
 		/** [BlueBack.Scene.Scene_Base]UnityUpdate
 		*/
-		public void UnityUpdate(BlueBack.Scene.PhaseType a_phase)
+		public void UnityUpdate(BlueBack.Scene.Step a_step)
 		{
-			if(a_phase == PhaseType.Running){
+			if(a_step == BlueBack.Scene.Step.Running){
 				if(this.fadein_flag == true){
 					this.fadein_time += UnityEngine.Time.deltaTime;
 					float t_value = UnityEngine.Mathf.Clamp01(3.0f - this.fadein_time * 3);
@@ -91,13 +91,13 @@ namespace BlueBack.Scene.Samples.SetNextScene
 				if(t_delta >= 3.0f){
 					this.scene.SetNextScene(
 						new SceneA(this.scene,0),
-						new ChangeAction_Item_Base[]{
+						new ChangeAction.Item_Base[]{
 							//シーンロード開始。
-							BlueBack.Scene.ChangeAction_SingleLoadRequestNextUnityScene.Create(false),
+							BlueBack.Scene.ChangeAction.SingleLoadRequestNextUnityScene.Create(false),
 							//フェードアウト。
 							SceneChangeAction_FadeOut.Create(),
 							//シーンロード待ち。
-							BlueBack.Scene.ChangeAction_WaitActivationNextUnityScene.Create(0),
+							BlueBack.Scene.ChangeAction.WaitActivationNextUnityScene.Create(0),
 						}
 					);
 				}
@@ -108,13 +108,13 @@ namespace BlueBack.Scene.Samples.SetNextScene
 
 		/** [BlueBack.Scene.Scene_Base]UnityFixedUpdate
 		*/
-		public void UnityFixedUpdate(BlueBack.Scene.PhaseType a_phase)
+		public void UnityFixedUpdate(BlueBack.Scene.Step a_step)
 		{
 		}
 
 		/** [BlueBack.Scene.Scene_Base]UnityLateUpdate
 		*/
-		public void UnityLateUpdate(BlueBack.Scene.PhaseType a_phase)
+		public void UnityLateUpdate(BlueBack.Scene.Step a_step)
 		{
 		}
 	}
