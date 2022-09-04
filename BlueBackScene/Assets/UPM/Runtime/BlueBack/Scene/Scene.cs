@@ -13,64 +13,50 @@ namespace BlueBack.Scene
 {
 	/** Scene
 	*/
-	public sealed class Scene : System.IDisposable , UnityCallBack_Base
+	#if(UNITY_EDITOR)
+	[System.Serializable]
+	#endif
+	public sealed class Scene : System.IDisposable
 	{
-		/** action
+		/** status
 		*/
-		public ChangeAction_Item_Base[] action_changeaction_list;
-		public int action_index;
+		public Status status;
 
 		/** phase
 		*/
-		public PhaseType phase;
-
-		/** scene
-		*/
-		public Scene_Base scene_current;
-		public Scene_Base scene_next;
-
-		/** request
-		*/
-		public Scene_Base request_scene;
-		public ChangeAction_Item_Base[] request_changeaction_list;
-
-		/** loadscene_async
-		*/
-		public UnityEngine.AsyncOperation loadscene_async;
-
-		/** callback_gameobject
-		*/
-		private UnityEngine.GameObject callback_gameobject;
+		public Phase phase;
 
 		/** constructor
 		*/
-		public Scene()
+		public Scene(in InitParam a_initparam)
 		{
-			//action
-			this.action_changeaction_list = null;
-			this.action_index = 0;
+			//step
+			this.status.step = Step.Boot;
 
-			//phase
-			this.phase = PhaseType.Boot;
+			//action
+			this.status.changeaction_index = 0;
+			this.status.changeaction_list = null;
+
+			//phase_type
+			this.phase = new Phase();
 
 			//scene
-			this.scene_current = null;
-			this.scene_next = null;
+			this.status.scene_current = null;
+			this.status.scene_next = null;
 
 			//request
-			this.request_scene = null;
-			this.request_changeaction_list = null;
+			this.status.request_scene = null;
+			this.status.request_changeaction_list = null;
 
 			//loadscene_async
-			this.loadscene_async = null;
+			this.status.loadscene_async = null;
 
-			//callback
-			this.callback_gameobject = new UnityEngine.GameObject("Scene");
-			UnityEngine.GameObject.DontDestroyOnLoad(this.callback_gameobject);
-			this.callback_gameobject.AddComponent<UnityCallBack_MonoBehaviour>().unitycallback = this;
+			//unitycallback
+			this.status.unitycallback_monobehaviour = UnityCallBack_MonoBehaviour.CreateInstance(in a_initparam,this);
 
-			#if(DEF_BLUEBACK_SCENE_HIDEINNERGAMEOBJECT)
-			this.callback_gameobject.hideFlags = UnityEngine.HideFlags.HideInHierarchy;
+			//debugview
+			#if(DEF_BLUEBACK_SCENE_DEBUGVIEW)
+			this.status.debugview_monobehaviour = DebugView_MonoBehaviour.CreateInstance(in a_initparam,this);
 			#endif
 		}
 
@@ -78,157 +64,36 @@ namespace BlueBack.Scene
 		*/
 		public void Dispose()
 		{
-			if(this.callback_gameobject != null){
-				UnityEngine.GameObject.Destroy(this.callback_gameobject);
-				this.callback_gameobject = null;
+			//debugview
+			#if(DEF_BLUEBACK_SCENE_DEBUGVIEW)
+			DebugView_MonoBehaviour.DeleteInstance(ref this.status.debugview_monobehaviour);
+			#endif
+
+			//unitycallback
+			UnityCallBack_MonoBehaviour.DeleteInstance(ref this.status.unitycallback_monobehaviour);
+
+			//phase
+			if(this.phase != null){
+				this.phase.Dispose();
+				this.phase = null;
 			}
 		}
 
 		/** SetNextScene
 		*/
-		public void SetNextScene(Scene_Base a_scene,ChangeAction_Item_Base[] a_changeaction_list)
+		public void SetNextScene(Scene_Base a_scene,ChangeAction.Item_Base[] a_changeaction_list)
 		{
 			//request
-			this.request_scene = a_scene;
-			this.request_changeaction_list = a_changeaction_list;
+			this.status.request_scene = a_scene;
+			this.status.request_changeaction_list = a_changeaction_list;
 		}
 
-		/** [BlueBack.Scene.UnityCallBack_Base]UnityUpdate
+		/** ManualUpdate
 		*/
-		public void UnityUpdate()
+		public void ManualUpdate()
 		{
-			this.Inner_PhaseUpdate();
-			if(this.scene_current != null){
-				this.scene_current.UnityUpdate(this.phase);
-			}
-		}
-
-		/** [BlueBack.Scene.UnityCallBack_Base]UnityFixedUpdate
-		*/
-		public void UnityFixedUpdate()
-		{
-			if(this.scene_current != null){
-				this.scene_current.UnityFixedUpdate(this.phase);
-			}
-		}
-
-		/** [BlueBack.Scene.UnityCallBack_Base]UnityLateUpdate
-		*/
-		public void UnityLateUpdate()
-		{
-			if(this.scene_current != null){
-				this.scene_current.UnityLateUpdate(this.phase);
-			}
-		}
-
-		/** Inner_PhaseUpdate
-		*/
-		private void Inner_PhaseUpdate()
-		{
-			switch(this.phase){
-			case PhaseType.Boot:
-				{
-					//起動。
-
-					#if(DEF_BLUEBACK_DEBUG_LOG)
-					DebugTool.Log(string.Format("{0} : {1}","Inner_Update",this.phase));
-					#endif
-
-					if(this.request_scene != null){
-						//リクエストあり。
-
-						//scene
-						this.scene_current = null;
-						this.scene_next = this.request_scene;
-
-						//action
-						this.action_changeaction_list = this.request_changeaction_list;
-						this.action_index = 0;
-
-						//request
-						this.request_scene = null;
-						this.request_changeaction_list = null;
-
-						//phase
-						this.phase = PhaseType.ChangeAction;
-
-						//Change
-						if(this.action_changeaction_list != null){
-							if(this.action_index < this.action_changeaction_list.Length){
-								this.action_changeaction_list[this.action_index].Change(this);
-							}
-						}
-					}
-				}break;
-			case PhaseType.ChangeAction:
-				{
-					#if(DEF_BLUEBACK_DEBUG_LOG)
-					DebugTool.Log(string.Format("{0} : {1}","Inner_Update",this.phase));
-					#endif
-
-					bool t_fix = false;
-
-					//action_changeaction_list
-					if(this.action_changeaction_list != null){
-						if(this.action_index < this.action_changeaction_list.Length){
-							if(this.action_changeaction_list[this.action_index].Action(this) == true){
-								this.action_index++;
-								if(this.action_index < this.action_changeaction_list.Length){
-									this.action_changeaction_list[this.action_index].Change(this);
-								}else{
-									t_fix = true;
-								}
-							}
-						}else{
-							t_fix = true;
-						}
-					}else{
-						t_fix = true;
-					}
-
-					//fix
-					if(t_fix == true){
-						Scene_Base t_prev_scene = this.scene_current;
-
-						if(this.scene_current != null){
-							this.scene_current.SceneEnd(this.scene_next);
-						}
-
-						this.scene_current = this.scene_next;
-						this.scene_next = null;
-
-						this.action_changeaction_list = null;
-						this.action_index = 0;
-
-						this.phase = PhaseType.Running;
-
-						this.scene_current.SceneStart(t_prev_scene);
-					}
-				}break;
-			case PhaseType.Running:
-				{
-					if(this.request_scene != null){
-						//リクエストあり。
-
-						//scene
-						this.scene_next = this.request_scene;
-
-						//action
-						this.action_changeaction_list = this.request_changeaction_list;
-						this.action_index = 0;
-
-						//request
-						this.request_scene = null;
-						this.request_changeaction_list = null;
-
-						//phase
-						this.phase = PhaseType.ChangeAction;
-
-						//Change
-						this.action_changeaction_list[this.action_index].Change(this);
-					}
-				}break;
-			}
+			//phase
+			this.phase.ManualUpdate(ref this.status);
 		}
 	}
 }

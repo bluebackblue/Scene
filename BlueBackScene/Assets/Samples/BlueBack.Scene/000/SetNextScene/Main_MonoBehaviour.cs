@@ -16,15 +16,19 @@ namespace BlueBack.Scene.Samples.SetNextScene
 			UnityEngine.GameObject.Find("Image").GetComponent<UnityEngine.UI.Image>().material.SetFloat("visible",1.0f);
 
 			UnityEngine.GameObject.DontDestroyOnLoad(this.gameObject);
-			BlueBack.Scene.Scene t_scene = new BlueBack.Scene.Scene();
+
+			BlueBack.Scene.InitParam t_initparam = BlueBack.Scene.InitParam.CreateDefault();
+			{
+			}
+			BlueBack.Scene.Scene t_scene = new BlueBack.Scene.Scene(in t_initparam);
 
 			t_scene.SetNextScene(
 				new SceneA(t_scene,0),
-				new ChangeAction_Item_Base[]{
+				new ChangeAction.Item_Base[]{
 					//シーンロード開始。
-					BlueBack.Scene.ChangeAction_SingleLoadRequestNextUnityScene.Create(false),
+					BlueBack.Scene.ChangeAction.SingleLoadRequestNextUnityScene.Create(false),
 					//シーンロード待ち。
-					BlueBack.Scene.ChangeAction_WaitActivationNextUnityScene.Create(0),
+					BlueBack.Scene.ChangeAction.WaitActivationNextUnityScene.Create(0),
 				}
 			);
 		}

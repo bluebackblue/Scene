@@ -3,7 +3,7 @@
 /**
 	Copyright (c) blueback
 	Released under the MIT License
-	@brief シーン。フェーズ。
+	@brief シーン。ステップ。
 */
 
 
@@ -11,9 +11,9 @@
 */
 namespace BlueBack.Scene
 {
-	/** PhaseType
+	/** Step
 	*/
-	public enum PhaseType
+	public enum Step
 	{
 		/** ブート。
 		*/

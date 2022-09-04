@@ -42,15 +42,15 @@ namespace BlueBack.Scene
 
 		/** [BlueBack.Scene.Scene_Base]UnityUpdate
 		*/
-		void UnityUpdate(BlueBack.Scene.PhaseType a_phase);
+		void UnityUpdate(BlueBack.Scene.Step a_step);
 
 		/** [BlueBack.Scene.Scene_Base]UnityFixedUpdate
 		*/
-		void UnityFixedUpdate(BlueBack.Scene.PhaseType a_phase);
+		void UnityFixedUpdate(BlueBack.Scene.Step a_step);
 
 		/** [BlueBack.Scene.Scene_Base]UnityLateUpdate
 		*/
-		void UnityLateUpdate(BlueBack.Scene.PhaseType a_phase);
+		void UnityLateUpdate(BlueBack.Scene.Step a_step);
 	}
 }
 

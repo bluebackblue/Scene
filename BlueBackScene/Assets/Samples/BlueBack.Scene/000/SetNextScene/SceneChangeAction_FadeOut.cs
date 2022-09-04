@@ -6,7 +6,7 @@ namespace BlueBack.Scene.Samples.SetNextScene
 {
 	/** フェードアウト。
 	*/
-	public sealed class SceneChangeAction_FadeOut : BlueBack.Scene.ChangeAction_Base<SceneChangeAction_FadeOut.ID>
+	public sealed class SceneChangeAction_FadeOut : BlueBack.Scene.ChangeAction.Execute_Base<SceneChangeAction_FadeOut.ID>
 	{
 		/** ID
 		*/
@@ -14,9 +14,9 @@ namespace BlueBack.Scene.Samples.SetNextScene
 
 		/** Create
 		*/
-		public static ChangeAction_Item_Base Create()
+		public static ChangeAction.Item_Base Create()
 		{
-			return new ChangeAction_Item<SceneChangeAction_FadeOut.ID>(new SceneChangeAction_FadeOut(),SceneChangeAction_FadeOut.ID.Default);
+			return new BlueBack.Scene.ChangeAction.Item<SceneChangeAction_FadeOut.ID>(new SceneChangeAction_FadeOut(),SceneChangeAction_FadeOut.ID.Default);
 		}
 
 		/** time
@@ -29,20 +29,20 @@ namespace BlueBack.Scene.Samples.SetNextScene
 		{
 		}
 
-		/** [Action_Base<ID>]Change
+		/** [BlueBack.Scene.ChangeAction.ChangeAction_Base<ID>]開始。
 		*/
-		public void Change(SceneChangeAction_FadeOut.ID a_id,Scene a_scene)
+		public void Start(SceneChangeAction_FadeOut.ID a_id,ref BlueBack.Scene.Status a_status)
 		{
 			//time
 			this.time = UnityEngine.Time.realtimeSinceStartup;
 		}
 
-		/** [Action_Base<ID>]Action
+		/** [BlueBack.Scene.ChangeAction.ChangeAction_Base<ID>]アクション。
 
 			return == true : 完了。
 
 		*/
-		public bool Action(SceneChangeAction_FadeOut.ID a_id,Scene a_scene)
+		public bool Action(SceneChangeAction_FadeOut.ID a_id,ref BlueBack.Scene.Status a_status)
 		{
 			float t_delta = UnityEngine.Time.realtimeSinceStartup - this.time;
 
